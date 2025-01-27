@@ -1,58 +1,455 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Email Search Query Generator</title>
-      <style>
-                body {
-                              font-family: 'Poppins', sans-serif;
-                              background-color: #f0f2f5;
-                              margin: 0;
-                              display: flex;
-                              justify-content: center;
-                              align-items: center;
-                              min-height: 100vh;
-                              color: #495057;
-                }
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Search Query Generator</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #495057;
+        }
 
-                .container {
-                              background: #ffffff;
-                              box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-                              border-radius: 12px;
-                              padding: 40px;
-                              max-width: 500px;
-                              width: 100%;
-                              text-align: center;
-                }
+        .container {
+            background: #ffffff;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
 
-                h2 {
-                              margin-bottom: 20px;
-                              font-size: 28px;
-                              color: #007bff;
-                }
+        h2 {
+            margin-bottom: 20px;
+            font-size: 28px;
+            color: #007bff;
+        }
 
-                label {
-                              font-weight: 600;
-                              margin-bottom: 10px;
-                              display: block;
-                              text-align: left;
-                }
+        label {
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: block;
+            text-align: left;
+        }
 
-                input, select, button {
-                              width: 100%;
-                              padding: 15px;
-                              margin-bottom: 15px;
-                              border-radius: 8px;
-                              border: 1px solid #ced4da;
-                              font-size: 16px;
-                }
+        input, select, button {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border: 1px solid #ced4da;
+            font-size: 16px;
+        }
 
-                select {
-                              background-color: #f8f9fa;
-                }
+        select {
+            background-color: #f8f9fa;
+        }
 
-                button {
-                              b
-      </style></title>
-  </head>
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .output {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ced4da;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            font-family: 'Courier New', Courier, monospace;
+            word-wrap: break-word;
+            color: #495057;
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .actions button {
+            flex: 1;
+        }
+
+        .custom-alert {
+            display: none;
+            background-color: #28a745;
+            color: #fff;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 600;
+            margin-top: 15px;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        @media (max-width: 576px) {
+            .container {
+                padding: 20px;
+            }
+
+            h2 {
+                font-size: 24px;
+            }
+
+            input, select, button {
+                padding: 12px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Email Search Query Generator</h2>
+    
+    <label for="emailProvider">Select Email Provider:</label>
+    <select id="emailProvider">
+        <option value="gmail.com">@gmail.com</option>
+        <option value="yahoo.com">@yahoo.com</option>
+        <option value="hotmail.com">@hotmail.com</option>
+        <option value="outlook.com">@outlook.com</option>
+        <option value="icloud.com">@icloud.com</option>
+        <option value="aol.com">@aol.com</option>
+        <option value="protonmail.com">@protonmail.com</option>
+        <option value="zoho.com">@zoho.com</option>
+        <option value="gmx.com">@gmx.com</option>
+        <option value="yandex.com">@yandex.com</option>
+        <option value="mail.com">@mail.com</option>
+        <option value="live.com">@live.com</option>
+    </select>
+    
+    <label for="jobTitle">Job Title:</label>
+    <input type="text" id="jobTitle" placeholder="Enter Job Title (e.g., CEO)">
+    
+    <label for="state">State:</label>
+    <input type="text" id="state" placeholder="Enter State (e.g., New York)">
+    
+    <label for="country">Select Country:</label>
+    <select id="country">
+    <option value="af">Afghanistan</option>
+    <option value="al">Albania</option>
+    <option value="dz">Algeria</option>
+    <option value="as">American Samoa</option>
+    <option value="ad">Andorra</option>
+    <option value="ao">Angola</option>
+    <option value="ai">Anguilla</option>
+    <option value="ag">Antigua and Barbuda</option>
+    <option value="ar">Argentina</option>
+    <option value="am">Armenia</option>
+    <option value="aw">Aruba</option>
+    <option value="au">Australia</option>
+    <option value="at">Austria</option>
+    <option value="az">Azerbaijan</option>
+    <option value="bs">Bahamas</option>
+    <option value="bh">Bahrain</option>
+    <option value="bd">Bangladesh</option>
+    <option value="bb">Barbados</option>
+    <option value="by">Belarus</option>
+    <option value="be">Belgium</option>
+    <option value="bz">Belize</option>
+    <option value="bj">Benin</option>
+    <option value="bm">Bermuda</option>
+    <option value="bt">Bhutan</option>
+    <option value="bo">Bolivia</option>
+    <option value="ba">Bosnia and Herzegovina</option>
+    <option value="bw">Botswana</option>
+    <option value="br">Brazil</option>
+    <option value="bn">Brunei</option>
+    <option value="bg">Bulgaria</option>
+    <option value="bf">Burkina Faso</option>
+    <option value="bi">Burundi</option>
+    <option value="cv">Cabo Verde</option>
+    <option value="kh">Cambodia</option>
+    <option value="cm">Cameroon</option>
+    <option value="ca">Canada</option>
+    <option value="ky">Cayman Islands</option>
+    <option value="cf">Central African Republic</option>
+    <option value="td">Chad</option>
+    <option value="cl">Chile</option>
+    <option value="cn">China</option>
+    <option value="co">Colombia</option>
+    <option value="km">Comoros</option>
+    <option value="cd">Congo (DRC)</option>
+    <option value="cg">Congo (Republic)</option>
+    <option value="cr">Costa Rica</option>
+    <option value="ci">Côte d'Ivoire</option>
+    <option value="hr">Croatia</option>
+    <option value="cu">Cuba</option>
+    <option value="cy">Cyprus</option>
+    <option value="cz">Czechia</option>
+    <option value="dk">Denmark</option>
+    <option value="dj">Djibouti</option>
+    <option value="dm">Dominica</option>
+    <option value="do">Dominican Republic</option>
+    <option value="ec">Ecuador</option>
+    <option value="eg">Egypt</option>
+    <option value="sv">El Salvador</option>
+    <option value="gq">Equatorial Guinea</option>
+    <option value="er">Eritrea</option>
+    <option value="ee">Estonia</option>
+    <option value="sz">Eswatini</option>
+    <option value="et">Ethiopia</option>
+    <option value="fj">Fiji</option>
+    <option value="fi">Finland</option>
+    <option value="fr">France</option>
+    <option value="ga">Gabon</option>
+    <option value="gm">Gambia</option>
+    <option value="ge">Georgia</option>
+    <option value="de">Germany</option>
+    <option value="gh">Ghana</option>
+    <option value="gr">Greece</option>
+    <option value="gd">Grenada</option>
+    <option value="gt">Guatemala</option>
+    <option value="gn">Guinea</option>
+    <option value="gw">Guinea-Bissau</option>
+    <option value="gy">Guyana</option>
+    <option value="ht">Haiti</option>
+    <option value="hn">Honduras</option>
+    <option value="hu">Hungary</option>
+    <option value="is">Iceland</option>
+    <option value="in">India</option>
+    <option value="id">Indonesia</option>
+    <option value="ir">Iran</option>
+    <option value="iq">Iraq</option>
+    <option value="ie">Ireland</option>
+    <option value="il">Israel</option>
+    <option value="it">Italy</option>
+    <option value="jm">Jamaica</option>
+    <option value="jp">Japan</option>
+    <option value="jo">Jordan</option>
+    <option value="kz">Kazakhstan</option>
+    <option value="ke">Kenya</option>
+    <option value="ki">Kiribati</option>
+    <option value="kp">Korea (North)</option>
+    <option value="kr">Korea (South)</option>
+    <option value="kw">Kuwait</option>
+    <option value="kg">Kyrgyzstan</option>
+    <option value="la">Laos</option>
+    <option value="lv">Latvia</option>
+    <option value="lb">Lebanon</option>
+    <option value="ls">Lesotho</option>
+    <option value="lr">Liberia</option>
+    <option value="ly">Libya</option>
+    <option value="li">Liechtenstein</option>
+    <option value="lt">Lithuania</option>
+    <option value="lu">Luxembourg</option>
+    <option value="mg">Madagascar</option>
+    <option value="mw">Malawi</option>
+    <option value="my">Malaysia</option>
+    <option value="mv">Maldives</option>
+    <option value="ml">Mali</option>
+    <option value="mt">Malta</option>
+    <option value="mh">Marshall Islands</option>
+    <option value="mr">Mauritania</option>
+    <option value="mu">Mauritius</option>
+    <option value="mx">Mexico</option>
+    <option value="fm">Micronesia</option>
+    <option value="md">Moldova</option>
+    <option value="mc">Monaco</option>
+    <option value="mn">Mongolia</option>
+    <option value="me">Montenegro</option>
+    <option value="ma">Morocco</option>
+    <option value="mz">Mozambique</option>
+    <option value="mm">Myanmar</option>
+    <option value="na">Namibia</option>
+    <option value="nr">Nauru</option>
+    <option value="np">Nepal</option>
+    <option value="nl">Netherlands</option>
+    <option value="nz">New Zealand</option>
+    <option value="ni">Nicaragua</option>
+    <option value="ne">Niger</option>
+    <option value="ng">Nigeria</option>
+    <option value="mk">North Macedonia</option>
+    <option value="no">Norway</option>
+    <option value="om">Oman</option>
+    <option value="pk">Pakistan</option>
+    <option value="pw">Palau</option>
+    <option value="ps">Palestine</option>
+    <option value="pa">Panama</option>
+    <option value="pg">Papua New Guinea</option>
+    <option value="py">Paraguay</option>
+    <option value="pe">Peru</option>
+    <option value="ph">Philippines</option>
+    <option value="pl">Poland</option>
+    <option value="pt">Portugal</option>
+    <option value="qa">Qatar</option>
+    <option value="ro">Romania</option>
+    <option value="ru">Russia</option>
+    <option value="rw">Rwanda</option>
+    <option value="kn">Saint Kitts and Nevis</option>
+    <option value="lc">Saint Lucia</option>
+    <option value="vc">Saint Vincent and the Grenadines</option>
+    <option value="ws">Samoa</option>
+    <option value="sm">San Marino</option>
+    <option value="st">Sao Tome and Principe</option>
+    <option value="sa">Saudi Arabia</option>
+    <option value="sn">Senegal</option>
+    <option value="rs">Serbia</option>
+    <option value="sc">Seychelles</option>
+    <option value="sl">Sierra Leone</option>
+    <option value="sg">Singapore</option>
+    <option value="sk">Slovakia</option>
+    <option value="si">Slovenia</option>
+    <option value="sb">Solomon Islands</option>
+    <option value="so">Somalia</option>
+    <option value="za">South Africa</option>
+    <option value="ss">South Sudan</option>
+    <option value="es">Spain</option>
+    <option value="lk">Sri Lanka</option>
+    <option value="sd">Sudan</option>
+    <option value="sr">Suriname</option>
+    <option value="se">Sweden</option>
+    <option value="ch">Switzerland</option>
+    <option value="sy">Syria</option>
+    <option value="tw">Taiwan</option>
+    <option value="tj">Tajikistan</option>
+    <option value="tz">Tanzania</option>
+    <option value="th">Thailand</option>
+    <option value="tl">Timor-Leste</option>
+    <option value="tg">Togo</option>
+    <option value="to">Tonga</option>
+    <option value="tt">Trinidad and Tobago</option>
+    <option value="tn">Tunisia</option>
+    <option value="tr">Turkey</option>
+    <option value="tm">Turkmenistan</option>
+    <option value="tv">Tuvalu</option>
+    <option value="ug">Uganda</option>
+    <option value="ua">Ukraine</option>
+    <option value="ae">United Arab Emirates</option>
+    <option value="gb">United Kingdom</option>
+    <option value="us">United States</option>
+    <option value="uy">Uruguay</option>
+    <option value="uz">Uzbekistan</option>
+    <option value="vu">Vanuatu</option>
+    <option value="ve">Venezuela</option>
+    <option value="vn">Vietnam</option>
+    <option value="ye">Yemen</option>
+    <option value="zm">Zambia</option>
+    <option value="zw">Zimbabwe</option>
+</select>
+
+
+    <label for="platform">Select Platform:</label>
+    <select id="platform">
+        <option value="linkedin">LinkedIn</option>
+        <option value="linkedinjobs">LinkedIn Jobs</option>
+        <option value="linkedinlearning">LinkedIn Learning</option>
+        <option value="linkedinlabs">LinkedIn Labs</option>
+        <option value="instagram">Instagram</option>
+        <option value="facebook">Facebook</option>
+        <option value="twitter">Twitter</option>
+        <option value="reddit">Reddit</option>
+        <option value="pinterest">Pinterest</option>
+        <option value="tiktok">TikTok</option>
+    </select>
+    
+    <label for="year">Year:</label>
+    <input type="number" id="year" placeholder="Enter Year (e.g., 2020)" min="1900" max="2100">
+
+    <button onclick="generateQuery()">Generate Query</button>
+    
+    <div class="output" id="output"></div>
+    
+    <div class="actions">
+        <button onclick="copyToClipboard()">Copy Query</button>
+        <button onclick="openInBrowser()">Open in Browser</button>
+    </div>
+    
+    <div class="custom-alert" id="customAlert">Query copied to clipboard!</div>
+</div>
+
+<script>
+    function generateQuery() {
+        const emailProvider = document.getElementById('emailProvider').value;
+        const jobTitle = document.getElementById('jobTitle').value;
+        const state = document.getElementById('state').value;
+        const country = document.getElementById('country').value;
+        const platform = document.getElementById('platform').value;
+        const year = document.getElementById('year').value;
+
+        let siteDomain;
+
+        switch(platform) {
+            case "linkedin":
+                siteDomain = country === "us" ? "www.linkedin.com" : ${country}.linkedin.com;
+                break;
+            case "linkedinjobs":
+                siteDomain = country === "us" ? "www.linkedin.com/jobs" : ${country}.linkedin.com/jobs;
+                break;
+            case "linkedinlearning":
+                siteDomain = country === "us" ? "www.linkedin.com/learning" : ${country}.linkedin.com/learning;
+                break;
+            case "linkedinlabs":
+                siteDomain = country === "us" ? "www.linkedin.com/labs" : ${country}.linkedin.com/labs;
+                break;
+            case "instagram":
+                siteDomain = "www.instagram.com";
+                break;
+            case "facebook":
+                siteDomain = "www.facebook.com";
+                break;
+            case "twitter":
+                siteDomain = "www.twitter.com";
+                break;
+            case "reddit":
+                siteDomain = "www.reddit.com";
+                break;
+            case "pinterest":
+                siteDomain = "www.pinterest.com";
+                break;
+            case "tiktok":
+                siteDomain = "www.tiktok.com";
+                break;
+        }
+
+        const query = `"${jobTitle}" "${state}" -intitle:"profiles" -inurl:"dir/ " email "${emailProvider}" ${year ? before:${year}-01-01 after:${year}-12-31 : ''} site:${siteDomain}`;
+
+        document.getElementById('output').innerText = query;
+    }
+
+    function copyToClipboard() {
+        const output = document.getElementById('output').innerText;
+        navigator.clipboard.writeText(output).then(() => {
+            showCustomAlert();
+        });
+    }
+
+    function showCustomAlert() {
+        const alert = document.getElementById('customAlert');
+        alert.style.display = 'block';
+        alert.style.opacity = '1';
+        setTimeout(() => {
+            alert.style.opacity = '0';
+            setTimeout(() => {
+                alert.style.display = 'none';
+            }, 300);
+        }, 2000);
+    }
+
+    function openInBrowser() {
+        const query = document.getElementById('output').innerText;
+        const searchUrl = https://www.google.com/search?q=${encodeURIComponent(query)};
+        window.open(searchUrl, '_blank');
+    }
+</script>
+
+</body>
+</html>
