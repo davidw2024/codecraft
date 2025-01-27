@@ -389,16 +389,16 @@
 
         switch(platform) {
             case "linkedin":
-                siteDomain = country === "us" ? "www.linkedin.com" : ${country}.linkedin.com;
+                siteDomain = country === "us" ? "www.linkedin.com" : `${country}.linkedin.com`;
                 break;
             case "linkedinjobs":
-                siteDomain = country === "us" ? "www.linkedin.com/jobs" : ${country}.linkedin.com/jobs;
+                siteDomain = country === "us" ? "www.linkedin.com/jobs" : `${country}.linkedin.com/jobs`;
                 break;
             case "linkedinlearning":
-                siteDomain = country === "us" ? "www.linkedin.com/learning" : ${country}.linkedin.com/learning;
+                siteDomain = country === "us" ? "www.linkedin.com/learning" : `${country}.linkedin.com/learning`;
                 break;
             case "linkedinlabs":
-                siteDomain = country === "us" ? "www.linkedin.com/labs" : ${country}.linkedin.com/labs;
+                siteDomain = country === "us" ? "www.linkedin.com/labs" : `${country}.linkedin.com/labs`;
                 break;
             case "instagram":
                 siteDomain = "www.instagram.com";
@@ -420,7 +420,7 @@
                 break;
         }
 
-        const query = `"${jobTitle}" "${state}" -intitle:"profiles" -inurl:"dir/ " email "${emailProvider}" ${year ? before:${year}-01-01 after:${year}-12-31 : ''} site:${siteDomain}`;
+        const query = `"${jobTitle}" "${state}" -intitle:"profiles" -inurl:"dir/ " email "${emailProvider}" ${year ? `before:${year}-01-01 after:${year}-12-31` : ''} site:${siteDomain}`;
 
         document.getElementById('output').innerText = query;
     }
@@ -446,7 +446,7 @@
 
     function openInBrowser() {
         const query = document.getElementById('output').innerText;
-        const searchUrl = https://www.google.com/search?q=${encodeURIComponent(query)};
+        const searchUrl = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
         window.open(searchUrl, '_blank');
     }
 </script>
