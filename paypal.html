@@ -69,10 +69,43 @@
       color: #ffccff;
     }
 
-    video {
+    .video-container {
+      position: relative;
       width: 100%;
-      border-radius: 12px;
-      border: 3px solid #fff;
+      height: 300px;
+      background: linear-gradient(135deg, #0093e9, #ff7eb3);
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+      border-radius: 15px;
+      perspective: 1500px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .video-overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotateX(10deg) rotateY(-10deg);
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #fff;
+      text-align: center;
+      letter-spacing: 2px;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    .chat-message {
+      font-size: 1.2em;
+      font-weight: 600;
+    }
+
+    .video-container:hover .video-overlay {
+      transform: translate(-50%, -50%) rotateX(0deg) rotateY(0deg);
     }
 
     .contact {
@@ -108,13 +141,15 @@
   </header>
 
   <main>
-     <section id="video">
-  <h2>Watch the Full Tutorial Below</h2>
-  <video width="100%" controls controlsList="nodownload" oncontextmenu="return false" preload="metadata">
-    <source src="http://test.reachnepicin.com/v1.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
-</section>
+    <section id="video">
+      <h2>Watch the Full Tutorial Below</h2>
+      <div class="video-container">
+        <div class="video-overlay">
+          <p class="chat-message">Chat us to get the paid video guidelines</p>
+        </div>
+      </div>
+    </section>
+
     <div class="contact">
       For latest PayPal updates or help, chat on WhatsApp: <span>08140349386</span>
     </div>
